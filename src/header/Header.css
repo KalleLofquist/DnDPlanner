@@ -1,0 +1,32 @@
+#banner {
+    background: linear-gradient(135deg, #ad2829 0%, #7e0f0b 100%);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(78, 84, 200, 0.2);
+    border-radius: 0 0 24px 24px;
+    min-height: 150px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+
+    h1 {
+        padding: 0 20px; 
+        font-family: 'Cinzel', serif;
+        font-optical-sizing: auto;
+        font-style: normal;
+        text-shadow: #000000 1px 1px 5px;
+        span {
+            font-size: smaller;
+            color: #668549;
+        }
+    }
+
+    img {
+        height: 80px;
+        margin-bottom: 20px;
+        filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+        display: inline-block;
+    }
+}

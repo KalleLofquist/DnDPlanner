@@ -1,0 +1,36 @@
+#navigation {
+    padding: 10px;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+
+    
+    a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        color: #668549;
+        text-decoration: none;
+        transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+        &::before {
+            transition: all 0.6s ease;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        &:hover {
+            border-radius: 10px;
+            transform: rotate(15deg);
+            color: white;
+        }
+
+        &:hover::before {
+            opacity: 0.5;
+            transform: scale(2);
+        }
+    }
+}
