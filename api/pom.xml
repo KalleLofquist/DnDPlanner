@@ -68,6 +68,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>se.karl.appconfig.App</mainClass>
+                </configuration>
             </plugin>
         </plugins>
     </build>
