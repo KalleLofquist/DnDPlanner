@@ -13,6 +13,9 @@ dist-ssr
 *.local
 secrets.txt
 
+# Maven/Gradle build outputs
+target/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
