@@ -43,9 +43,11 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
+        working-directory: ui
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: ui/package-lock.json
 
       - name: Install and build frontend
         working-directory: ui
