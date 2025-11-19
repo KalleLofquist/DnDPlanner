@@ -11,7 +11,7 @@ import se.karl.appconfig.App;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class HelloControllerTest {
+public class PlanControllerTest {
     @LocalServerPort
     int port;
 
