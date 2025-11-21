@@ -23,8 +23,7 @@ public class PlanService {
 
     public PlanDTO getPlan(Long id) {
         PlanEntity planEntity = planRepository.findById(id).orElseThrow();
-        PlanDTO planDTO = PlanMapper.toDTO(planEntity);
-        return planDTO;
+        return PlanMapper.toDTO(planEntity);
     }
 
     public PlanDTO createPlan(PlanRequest planRequest) {
@@ -36,8 +35,7 @@ public class PlanService {
 
         PlanEntity savedPlan = planRepository.save(planEntity);
 
-        PlanDTO planDTO = PlanMapper.toDTO(savedPlan);
-        return planDTO;
+        return PlanMapper.toDTO(savedPlan);
     }
     
 }
