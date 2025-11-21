@@ -30,7 +30,7 @@ public class PlanService {
         PlanEntity planEntity = new PlanEntity();
         planEntity.setName(planRequest.name());
         planEntity.setDescription(planRequest.description());
-        planEntity.setTime(LocalDateTime.parse(planRequest.time()));
+        planEntity.setTime(planRequest.time());
         planEntity.setLocation(planRequest.location());
 
         PlanEntity savedPlan = planRepository.save(planEntity);

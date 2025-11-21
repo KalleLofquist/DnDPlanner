@@ -2,19 +2,19 @@ package se.karl.plan.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestBody;
-import se.karl.plan.service.PlanService;
+
 import se.karl.plan.controller.model.PlanDTO;
 import se.karl.plan.controller.model.PlanRequest;
+import se.karl.plan.service.PlanService;
 
 @RestController
-@RequestMapping("/plans")
+@RequestMapping(value = "/plans")
 public class PlanController {
 
     private final PlanService planService;
@@ -24,7 +24,7 @@ public class PlanController {
         this.planService = planService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<PlanDTO> getPlan(@PathVariable Long id) {
         return ResponseEntity.ok(planService.getPlan(id));
     }
