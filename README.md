@@ -26,7 +26,6 @@ Key ideas:
 ## Quick project map
 
 - `api/src/main/java/se/karl/appconfig/App.java` — Spring Boot entry point.
-- `api/src/main/java/se/karl/controller/PlanController.java` — Example controller (exposes `/hello`).
 - `api/pom.xml` — Maven configuration (Java 21, Spring Boot parent).
 - `ui/` — React client (Vite + npm).
 
@@ -52,13 +51,6 @@ mvn -f .\api spring-boot:run
 # Or: build and run the produced jar (if you need to run the packaged artifact)
 mvn -f .\api clean package
 java --enable-preview -jar .\api\target\dndplanner-1.0-SNAPSHOT.jar
-```
-
-By default the backend runs on port 8080. A quick API check:
-
-```powershell
-# Example: call the sample endpoint
-Invoke-RestMethod -Uri http://localhost:8080/hello
 ```
 
 2) Start the frontend
@@ -97,17 +89,6 @@ mvn -f .\api test
 ```
 
 Add frontend tests as you add components and logic.
-
-## API examples
-
-This repository includes a tiny example controller exposing `/hello` that returns a JSON-like string for quick verification. Expand controllers under `se.karl.controller` to add real endpoints for sessions, users and joins.
-
-Example (PowerShell):
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:8080/hello
-# Expected response: "Hello World!"
-```
 
 ## Development tips
 
