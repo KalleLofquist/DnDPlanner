@@ -1,54 +1,46 @@
 # DnDPlanner
 
-A small web service and frontend to help tabletop role-playing players find others and join up for adventures.
+A lightweight web service and React frontend to help tabletop role‑playing players create, browse and join game sessions.
 
 This repository contains two main parts:
 
-- `api/` — Java Spring Boot backend (REST API). Built with Maven and targets Java 21.
-- `ui/` — React + Vite frontend (client) for interacting with the service.
+- Backend: a Java Spring Boot REST API in [api/pom.xml](api/pom.xml).
+- Frontend: a React + Vite client in `ui/`.
 
-## What it does
+Why this project
+ - Kickstart for building a session-finding service for RPG players.
+ - Small, focused codebase ideal for experimentation: add profiles, scheduling, chat, auth.
 
-DnDPlanner aims to make it easy for players to post, search and join game sessions. The current codebase contains the minimal backend and a React front-end starter. Use this project as a foundation for adding features like user profiles, game listings, chat and scheduling.
+Features (current)
+ - Create a game session (POST /plans)
+ - Fetch a session by id (GET /plans/{id})
 
-Key ideas:
+Tech stack
+ - Java 21, Spring Boot, Maven
+ - React + Vite for the frontend
+ - H2 used for simple local persistence during development
 
-- Allow hosts to create adventure sessions and list needed player roles.
-- Let players browse and join sessions near their interests.
-- Provide a lightweight REST API consumed by the React frontend.
+Quick links
+ - Backend entrypoint: [api/src/main/java/se/karl/appconfig/App.java](api/src/main/java/se/karl/appconfig/App.java)
+ - Main controller: [api/src/main/java/se/karl/plan/controller/PlanController.java](api/src/main/java/se/karl/plan/controller/PlanController.java)
+ - Frontend: `ui/`
+ - Docker compose: [docker-compose.yml](docker-compose.yml)
 
-## Tech stack
+Prerequisites
+ - JDK 21 installed and on PATH
+ - Maven 3.8+ (for the backend)
+ - Node 18+ and npm/yarn/pnpm (for the frontend)
+ - Docker (optional, if you prefer containers)
 
-- Backend: Spring Boot (spring-boot-starter-web), H2 for embedded data during development. Java 21.
-- Build: Maven
-- Frontend: React 19 + Vite
+Quick Start — development (PowerShell)
 
-## Quick project map
-
-- `api/src/main/java/se/karl/appconfig/App.java` — Spring Boot entry point.
-- `api/pom.xml` — Maven configuration (Java 21, Spring Boot parent).
-- `ui/` — React client (Vite + npm).
-
-## Prerequisites
-
-- JDK 21 installed and available on PATH (recommended). The backend is compiled for Java 21 and the pom uses `--enable-preview` for compilation; running may require `--enable-preview` depending on features used.
-- Maven 3.8+ for building the Java backend.
-- Node 18+ and npm (or pnpm/yarn) for the frontend.
-
-## Running the application (development)
-
-Open two terminals (backend and frontend). The examples below are PowerShell-friendly.
-
-
-1) Start the backend
-
-PowerShell:
+1) Start the backend (dev)
 
 ```powershell
-# Run directly using the Spring Boot Maven plugin
+# From repo root: run via Maven (dev)
 mvn -f .\api spring-boot:run
 
-# Or: build and run the produced jar (if you need to run the packaged artifact)
+# Or build and run the jar
 mvn -f .\api clean package
 java --enable-preview -jar .\api\target\dndplanner-1.0-SNAPSHOT.jar
 ```
@@ -61,50 +53,76 @@ npm install
 npm run dev
 ```
 
-Vite will run a dev server (typically on http://localhost:5173). The front-end expects the backend API at the server root — update the client code if you run the API on a different host or port.
+Vite usually serves the client at http://localhost:5173. If the frontend and backend are on different ports, configure the client to point to the API base URL.
 
-## Build for production
-
-Backend (package):
+Run everything with Docker Compose
 
 ```powershell
-mvn -f .\api clean package
+# Build and start backend + frontend containers defined in docker-compose.yml
+docker-compose up --build
 ```
 
-Frontend (build static files):
+API — quick examples
 
-```powershell
-cd .\ui
-npm run build
+This project exposes a small Plans API implemented by `PlanController`.
+
+- POST /plans — create a plan
+- GET /plans/{id} — fetch a plan by id
+
+Example: create a plan (JSON payload uses ISO-8601 datetime)
+
+```bash
+curl -X POST http://localhost:8080/plans \
+	-H "Content-Type: application/json" \
+	-d '{
+		"name":"Evening Adventure",
+		"description":"Level 3 heroes, short session",
+		"time":"2026-02-15T19:00:00",
+		"location":"Online (Discord)"
+	}'
 ```
 
-Serve the built frontend with any static host and point it to the backend API.
+Example: get a plan
 
-## Tests
-
-Run backend tests with Maven:
-
-```powershell
-mvn -f .\api test
+```bash
+curl http://localhost:8080/plans/1
 ```
 
-Add frontend tests as you add components and logic.
+Response shape (example)
 
-## Development tips
+```json
+{
+	"id": 1,
+	"name": "Evening Adventure",
+	"description": "Level 3 heroes, short session",
+	"time": "2026-02-15T19:00:00",
+	"location": "Online (Discord)"
+}
+```
 
-- Run backend and frontend concurrently in two terminals while developing.
-- Keep API contract stable (document endpoints) — update the frontend when you change routes or payloads.
-- Use H2 for quick local data but switch to a proper DB for production.
+Build & test
+ - Backend: `mvn -f api clean package` and `mvn -f api test`
+ - Frontend: `cd ui && npm run build`
 
-## Contribution
+Development notes
+ - The API models are in [api/src/main/java/se/karl/plan/controller/model](api/src/main/java/se/karl/plan/controller/model)
+ - `PlanRequest` expects `name`, `description`, `time` (ISO‑8601) and `location`.
+ - Use H2 for fast local iterations; swap to a production DB for deployments.
 
-Contributions are welcome. Small suggestions:
+Contributing
+ - Open issues, branch from `main`, add tests, and submit PRs.
+ - Keep changes focused and include a descriptive PR message.
 
-1. Open an issue describing the feature or bug.
-2. Create a feature branch, add tests, and open a pull request.
+Where to look in the code
+ - Controller: [api/src/main/java/se/karl/plan/controller/PlanController.java](api/src/main/java/se/karl/plan/controller/PlanController.java)
+ - DTOs / requests: [api/src/main/java/se/karl/plan/controller/model/PlanDTO.java](api/src/main/java/se/karl/plan/controller/model/PlanDTO.java) and [api/src/main/java/se/karl/plan/controller/model/PlanRequest.java](api/src/main/java/se/karl/plan/controller/model/PlanRequest.java)
 
-Please include short, focused commits and a descriptive PR message.
+License
+ - No license file included. Add a `LICENSE` (for example MIT) to clarify reuse terms.
 
-## License
+Next steps I can help with
+ - Add a minimal health endpoint and README badge
+ - Add a simple Postman/Insomnia collection for the API
+ - Wire the frontend to the running backend and demo a round-trip
 
-This project does not include a license file yet. Add a license to clarify reuse terms (e.g., MIT) if you want others to reuse the code.
+If you'd like one of those, tell me which and I'll implement it.
