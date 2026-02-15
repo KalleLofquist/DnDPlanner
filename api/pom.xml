@@ -19,7 +19,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <start-class>se.karl.App</start-class>
-        <java.version>21</java.version>
+        <java.version>24</java.version>
         <log4jdbc.log4j2.version>1.16</log4jdbc.log4j2.version>
         <rest.assured.version>2.3.3</rest.assured.version>
         <jilt.version>1.8.4</jilt.version>
@@ -75,16 +75,34 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- Ensure compilation uses Java 21 -->
+            <!-- Ensure compilation uses Java 24 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.15.0</version>
                 <configuration>
-                    <release>21</release>
-                    <compilerArgs>
-                        <arg>--enable-preview</arg>
-                    </compilerArgs>
+                    <release>24</release>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-toolchains-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>toolchain</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <toolchains>
+                        <jdk>
+                            <version>24</version>
+                            <vendor>openjdk</vendor>
+                        </jdk>
+                    </toolchains>
                 </configuration>
             </plugin>
 

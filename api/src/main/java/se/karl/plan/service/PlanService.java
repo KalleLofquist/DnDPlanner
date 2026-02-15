@@ -1,6 +1,8 @@
 package se.karl.plan.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,12 @@ public class PlanService {
         return PlanMapper.toDTO(planEntity);
     }
 
+    public List<PlanDTO> getAllPlans() {
+        return planRepository.findAll().stream()
+                .map(PlanMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
     public PlanDTO createPlan(PlanRequest planRequest) {
         PlanEntity planEntity = new PlanEntity();
         planEntity.setName(planRequest.name());
@@ -36,6 +44,10 @@ public class PlanService {
         PlanEntity savedPlan = planRepository.save(planEntity);
 
         return PlanMapper.toDTO(savedPlan);
+    }
+
+    public void deletePlan(Long id) {
+        planRepository.deleteById(id);
     }
     
 }
