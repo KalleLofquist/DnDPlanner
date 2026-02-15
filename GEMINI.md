@@ -71,10 +71,12 @@ docker-compose up --build
 
 ## API Endpoints
 
-The primary API endpoint is `/plans`, managed by `PlanController`.
+The primary API endpoints are managed by `PlanController`.
 
 *   `POST /plans`: Create a new game session plan.
+*   `GET /plans`: Retrieve all plans.
 *   `GET /plans/{id}`: Retrieve a plan by its ID.
+*   `DELETE /plans/{id}`: Delete a plan by its ID.
 
 ## Development Notes
 
