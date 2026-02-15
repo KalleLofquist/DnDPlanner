@@ -8,7 +8,7 @@ DnDPlanner is a web application designed to help tabletop role-playing game (RPG
 
 ### Key Technologies
 
-*   **Backend**: Java 21, Spring Boot, Maven, JPA/Hibernate, H2 (for development), PostgreSQL (for production), Flyway for database migrations.
+*   **Backend**: Java 24, Spring Boot, Maven, JPA/Hibernate, H2 (for development), PostgreSQL (for production), Flyway for database migrations.
 *   **Frontend**: React, Vite, JavaScript, CSS.
 *   **DevOps**: Docker, Docker Compose.
 
